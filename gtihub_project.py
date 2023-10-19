@@ -79,6 +79,28 @@ response = requests.post('https://api.pawan.krd/v1/completions', headers=headers
 
 # Extract and print the summary
 summary = response.json()['choices'][0]['text']
-print("Summary of Repository Issues:")
-print(summary)
+# print("Summary of Repository Issues:")
+# print(summary)
 
+
+email_sender = 'tarush.s10@gmail.com'
+email_receiver = 'tsharma_be20@thapar.edu'
+email_password = 'gabn knog cvrl fgme'
+
+subject = "Python Script"
+
+body = summary
+
+
+mail = EmailMessage()
+
+mail['From'] = email_sender
+mail['To'] = email_receiver
+mail['subject'] = subject
+mail.set_content(body)
+
+context = ssl.create_default_context()
+
+with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+  smtp.login(email_sender, email_password)
+  smtp.sendmail(email_sender,email_receiver,mail.as_string())
